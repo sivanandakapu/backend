@@ -8,6 +8,7 @@ load_dotenv()
 AWS_REGION    = os.getenv("AWS_REGION")
 BUCKET        = os.getenv("S3_BUCKET_ORIGINALS")
 COLLECTION_ID = os.getenv("REKOG_COLLECTION")
+CDN_DOMAIN    = os.getenv("CDN_DOMAIN")
 
 # S3 client for presigned URLs
 s3  = boto3.client("s3", region_name=AWS_REGION)
@@ -17,14 +18,9 @@ rek = boto3.client("rekognition", region_name=AWS_REGION)
 
 def get_s3_url(key: str) -> str:
     """
-    Return a presigned URL for the given key, valid for 1 hour.
+    Return the public CloudFront URL for the given S3 key.
     """
-    return s3.generate_presigned_url(
-        ClientMethod="get_object",
-        Params={"Bucket": BUCKET, "Key": key},
-        ExpiresIn=3600
-    )
-
+    return f"https://{CDN_DOMAIN}/{key}"
 
 def search_event_faces(
     image_bytes: bytes,
