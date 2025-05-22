@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>Spot My Photos</title>
+  <style>
+    img { max-width: 200px; margin: 0.5rem; border: 1px solid #ddd; }
+    .matches { display: flex; flex-wrap: wrap; }
+  </style>
+</head>
+<body>
+  <h1>Event: {{ event_id }}</h1>
+
+  <h2>Upload Your Selfie</h2>
+  <form action="/spot/{{ event_id }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="selfie" accept="image/*" required>
+    <button type="submit">Find My Photos</button>
+  </form>
+
+  {% if matches %}
+    <hr/>
+    <h2>Your Matched Photos</h2>
+    <div class="matches">
+      {% for url in matches %}
+        <img src="{{ url }}" alt="Matched photo"/>
+      {% endfor %}
+    </div>
+  {% endif %}
+</body>
+</html>

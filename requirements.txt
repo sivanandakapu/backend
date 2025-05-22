@@ -1,0 +1,6 @@
+fastapi
+uvicorn[standard]
+boto3
+python-dotenv
+jinja2
+aiofiles
