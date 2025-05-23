@@ -1,0 +1,13 @@
+version: "3.8"
+services:
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - CDN_DOMAIN=${CDN_DOMAIN}
+      - AWS_REGION=${AWS_REGION}
+      - S3_BUCKET_ORIGINALS=${S3_BUCKET_ORIGINALS}
+      - REKOG_COLLECTION=${REKOG_COLLECTION}
