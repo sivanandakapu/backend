@@ -10,10 +10,15 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],            # need to change this once we decide domain.
-    allow_methods=["GET","POST"],
+    allow_origins=["*"],      # or tighten to your front-end domain later
+    allow_methods=["*"],      # <— allow all methods including OPTIONS
     allow_headers=["*"],
 )
 
