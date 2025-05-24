@@ -6,6 +6,17 @@ from fastapi.templating import Jinja2Templates
 from utils import get_s3_url, search_event_faces
 
 app = FastAPI()
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],            # need to change this once we decide domain.
+    allow_methods=["GET","POST"],
+    allow_headers=["*"],
+)
+
 templates = Jinja2Templates(directory="templates")
 
 @app.get("/spot/{event_id}", response_class=HTMLResponse)
